@@ -32,7 +32,7 @@ public class ApplicationUserController {
     ApplicationUserRepository applicationUserRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    PasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/users")
     public RedirectView createNewApplicationUser(String username, String password, String firstName, String lastName, String dateOfBirthString, String bio){
@@ -43,7 +43,7 @@ public class ApplicationUserController {
 
         // make the user AND salt and hash the password
         // this does the salting and hashing for you
-        ApplicationUser newUser = new ApplicationUser(username, passwordEncoder.encode(password), firstName, lastName, dateOfBirth, bio);
+        ApplicationUser newUser = new ApplicationUser(username, bCryptPasswordEncoder.encode(password), firstName, lastName, dateOfBirth, bio);
 
         // save the user to db
         applicationUserRepository.save(newUser);
@@ -53,7 +53,7 @@ public class ApplicationUserController {
 
 
         // send them back home
-        return new RedirectView("/myprofile");
+        return new RedirectView("/ h ");
     }
 
 //    TODO: login is returning the error below:
