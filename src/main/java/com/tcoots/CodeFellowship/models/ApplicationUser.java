@@ -4,31 +4,36 @@ package com.tcoots.CodeFellowship.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class ApplicationUser implements UserDetails {
 
 
     @Id
-            @GeneratedValue(strategy = GenerationType.AUTO)
-            long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long id;
+
+    @OneToMany(mappedBy = "creator")
+    List<Post> posts;
+
+
+    @Column(unique = true)
     String username;
     String password;
     String firstName;
     String lastName;
-    String dateOfBirth;
     String bio;
+    LocalDate dateOfBirth;
 
     public ApplicationUser(){
 
     }
 
-    public ApplicationUser(String username, String password, String firstName, String lastName, String dateOfBirth, String bio){
+    public ApplicationUser(String username, String password, String firstName, String lastName, LocalDate dateOfBirth, String bio){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -58,12 +63,52 @@ public class ApplicationUser implements UserDetails {
         return lastName;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getBio() {
         return bio;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public boolean isAccountNonExpired() {
