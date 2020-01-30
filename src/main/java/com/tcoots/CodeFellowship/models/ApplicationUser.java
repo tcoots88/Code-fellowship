@@ -13,6 +13,7 @@ import java.util.List;
 public class ApplicationUser implements UserDetails {
 
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
