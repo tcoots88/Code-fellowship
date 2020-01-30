@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+
     // Bean matches to the annotation Autowired
     @Bean
     public PasswordEncoder passwordEncoder(){

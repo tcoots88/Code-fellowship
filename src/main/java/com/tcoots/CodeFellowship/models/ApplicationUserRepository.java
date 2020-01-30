@@ -11,3 +11,4 @@ public interface ApplicationUserRepository extends JpaRepository<ApplicationUser
         return null;
     }
 }
+
