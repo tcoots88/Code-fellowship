@@ -1,0 +1,51 @@
+
+
+body {
+    margin: 2em;
+    background: #008080;
+}
+
+a {
+    font-size: 25px;
+    color: white;
+}
+h1{
+   text-align: center;
+}
+
+#profile {
+    width: 100px;
+    height: 100px;
+}
+
+.header {
+    background: black;
+    opacity: .6;
+    height: 80px;
+    padding: 2em;
+    width: 100%;
+    text-align: center;
+
+}
+
+
+
+body {
+    background: linear-gradient(-45deg, #13547a, #80d0c7, #23a6d5, #23d5ab);
+    background-size: 400% 800%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+

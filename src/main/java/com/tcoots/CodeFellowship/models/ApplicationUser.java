@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -16,18 +17,21 @@ public class ApplicationUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    public long id;
 
     @OneToMany(mappedBy = "creator")
     List<Post> posts;
 
 
+    @ManyToMany
+    public Set<ApplicationUser> friends;
+
     @Column(unique = true)
-    String username;
-    String password;
-    String firstName;
-    String lastName;
-    String bio;
+    public String username;
+    public String password;
+    public String firstName;
+    public String lastName;
+    public String bio;
     LocalDate dateOfBirth;
 
     public ApplicationUser(){
@@ -110,6 +114,14 @@ public class ApplicationUser implements UserDetails {
 
     public long getId() {
         return id;
+    }
+
+    public Set<ApplicationUser> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<ApplicationUser> friends) {
+        this.friends = friends;
     }
 
     public boolean isAccountNonExpired() {

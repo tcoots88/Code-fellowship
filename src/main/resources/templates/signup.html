@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/style.css" rel="stylesheet" >
 </head>
 <body>
-<h1>This is a sign up page</h1>
+<div th:replace="fragments/header :: header">...</div>
+
+<h2> Create a Profile</h2>
+<form action="/signup" method="POST">
+    <p>Username: <input typr="text" name="username" /></p>
+    <p>Password: <input name="password" /></p>
+    <p>First Name: <input name="firstName" /></p>
+    <p>Last name: <input name="lastName" /></p>
+    <p>Bio: <input name="bio" /></p>
+    <p>Date of birth: <input type="datetime" name="dateOfBirthString" /></p>
+    <input type="submit" />
+
 
 
 </body>

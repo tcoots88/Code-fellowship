@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/style.css" rel="stylesheet" >
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<h3>Welcome, <span th:text="${currentUser.username}"></span></h3>
+
+
+<h4>Your Friends</h4>
+<div th:replace="fragments/friends :: friendsList(friends=${currentUser.friends})"></div>
+
+<ul th:each="friend : ${friend}">
+    <li> <a th:href="@{/users/{id}(id=${friend.id})}"><span th:text="${friend.username}"></span></a></li>
+</ul>
+
+<h3>Add a friend!</h3>
+<form method="POST" th:action="'/users/' + ${currentUser.id} + '/friends'">
+    <select name="friend">
+        <option
+                th:each="user : ${users}"
+                th:value="${user.id}"
+                th:text="${user.username}">
+        </option>
+    </select>
+    <input type="submit">
+
+</form>
+
+</body>
+</html>

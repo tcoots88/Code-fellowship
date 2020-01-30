@@ -1,7 +1,6 @@
 package com.tcoots.CodeFellowship.controllers;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.tcoots.CodeFellowship.models.ApplicationUser;
 import com.tcoots.CodeFellowship.models.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,9 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 
 //took some from demo from class
@@ -35,7 +36,7 @@ public class ApplicationUserController {
     @Autowired
     PasswordEncoder bCryptPasswordEncoder;
 
-    @PostMapping("/users")
+    @PostMapping("/users/create")
     public RedirectView createNewApplicationUser(String username, String password, String firstName, String lastName, String dateOfBirthString, String bio){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         LocalDate dateOfBirth;
@@ -54,11 +55,53 @@ public class ApplicationUserController {
 
 
         // send them back home
-        return new RedirectView("/ h ");
+        return new RedirectView("/myprofile");
     }
 
-//    TODO: login is returning the error below:
-//    org.springframework.security.authentication.InternalAuthenticationServiceException: UserDetailsService returned null, which is an interface contract violation
+    @GetMapping("/users")
+    public String getUsers(Model m, Principal p){
+        ApplicationUser currentUser = ApplicationUserRepository.findByUsername(p.getName());
+        List<ApplicationUser> users = applicationUserRepository.findAll();
+        System.out.println(Arrays.asList(users).toString());
+        Set<ApplicationUser> friends = currentUser.getFriends();
+        System.out.println(Arrays.asList(friends).toString());
+
+
+        users.remove(currentUser);
+        m.addAttribute("currentUser", currentUser);
+        m.addAttribute("users",users);
+        m.addAttribute("friends", friends);
+
+        return "users";
+    }
+
+
+    @PostMapping("/users/{id}/friends")
+    public RedirectView addFriend(@PathVariable Long id, Long friend, Principal p, Model m) {
+        ApplicationUser currentUser = applicationUserRepository.findById(id).get();
+        ApplicationUser newFriend = applicationUserRepository.findById(friend).get();
+        if(!currentUser.username.equals(p.getName()) || !newFriend.username.equals(p.getName())) {
+            throw new UsernameNotFoundException("");
+        }
+
+        currentUser.friends.add(newFriend);
+        newFriend.friends.add(currentUser);
+        applicationUserRepository.save(currentUser);
+        applicationUserRepository.save(newFriend);
+
+        return new RedirectView("/users/" + id);
+    }
+
+    @GetMapping("/feed")
+    public String getFeed(Principal p, Model m) {
+        ApplicationUser user = ApplicationUserRepository.findByUsername(p.getName());
+        m.addAttribute("user", user);
+
+        return "userInfo";
+    }
+
+
+
 
 
     @GetMapping("/login")
@@ -80,10 +123,11 @@ public class ApplicationUserController {
     }
 
     @GetMapping("/myprofile")
-    public String getProfilePage(Principal p, Model m){
+    public RedirectView getProfilePage(Principal p, Model m){
         ApplicationUser user = ApplicationUserRepository.findByUsername(p.getName());
+        Long id = user.id;
         m.addAttribute("user", user);
-        return "userInfo";
+        return new RedirectView("/users/" + id);
     }
 
     @GetMapping("/signup")

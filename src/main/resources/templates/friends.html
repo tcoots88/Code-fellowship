@@ -2,21 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Friends</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="/style.css" rel="stylesheet" >
 </head>
-
 <body>
-
-<div th:replace="fragments/header :: header">...</div>
-
-
-<form action="/myprofile">
-    Username <input type="username" name="username">
-    Password <input type="password" name="password">
-    <input type="submit">
-</form>
+<ul th:fragment="friendsList(friends)">
+    <li th:fragment="friendsList(friends)">
+        <a  th:href="'/users/' + ${friend.id}">
+            <span th:text="${friend.username}"></span>
+    </a>
+    </li>
+</ul>
 
 </body>
 </html>
