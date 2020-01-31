@@ -3,30 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/style.css" rel="stylesheet" >
 </head>
 <body>
+<div th:replace="fragments/header :: header">...</div>
 
-<h1>Made it past security, welcome [[${username}]]</h1>
-
-<h2> make new users here</h2>
-<form action="/signup" method="GET">
-    <p>Username: <input typr="text" name="username" /></p>
-    <p>Password: <input name="password" /></p>
-    <p>First Name: <input name="firstName" /></p>
-    <p>Last name: <input name="lastName" /></p>
-    <p>Bio: <input name="bio" /></p>
-    <p>Date of birth: <input type="datetime" name="dateOfBirthString" /></p>
-    <input type="submit" />
+<h1>Welcome to Codefellowship!</h1>
+<a href="/signup">Sign Up</a> | <a href="/login">Login</a>
 
 
 
-    <nav>
-        <ul>
-            <li>
-                <a href="/login">Login</a>
-            </li>
-        </ul>
-    </nav>
+
 </form>
 </body>
 </html>
