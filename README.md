@@ -19,3 +19,5 @@ to run:
 /posts - post request for creating a post
 <br>
 /posts/add - get request to show form to create post
+<br>
+/feed - view all of the posts from the users that they follow

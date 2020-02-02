@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Friends</title>
+    <title>Error</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="/style.css" rel="stylesheet" >
+    <link href="/static/style.css" rel="stylesheet" >
 </head>
 <body>
-<ul th:fragment="friendsList(friends)">
-    <li th:fragment="friendsList(friends)">
-        <a  th:href="'/users/' + ${friend.id}">
-            <span th:text="${friend.username}"></span>
-    </a>
-    </li>
-</ul>
+<div th:replace="fragments/header :: header">...</div>
+
+<h1>Error!</h1>
+<h2> You have encountered this error because the developer did not know how to do his job, sorry.</h2>
+<p th:text="${error}"></p>
 
 </body>
 </html>

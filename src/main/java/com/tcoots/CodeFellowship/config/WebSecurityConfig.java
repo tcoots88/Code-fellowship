@@ -22,10 +22,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // wires step 3 and 4 of the guide doc together, makes user checking possible
     @Autowired
-    UserDetailServiceImpl userDetailService;
+    UserDetailsServiceImpl userDetailsService;
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
 
@@ -37,11 +37,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return bCryptPasswordEncoder;
     }
 
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 
 
     @Override
@@ -50,18 +52,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                    .antMatchers("/").permitAll()
                     .antMatchers(HttpMethod.POST, "/signup").permitAll()
                     .antMatchers("/*.css", "/", "/login", "/users/create", "/signup").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
-                .defaultSuccessUrl("/myprofile", true)
+                    .defaultSuccessUrl("/myprofile")
                     .loginPage("/login")
                     .permitAll()
                 .and()
                     .logout()
-                .logoutUrl("/")
+                    .logoutUrl("/")
                     .permitAll();
     }
 
