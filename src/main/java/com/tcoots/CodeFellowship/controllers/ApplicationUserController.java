@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -60,7 +61,7 @@ public class ApplicationUserController {
 
     @GetMapping("/users")
     public String getUsers(Model m, Principal p){
-        ApplicationUser currentUser = ApplicationUserRepository.findByUsername(p.getName());
+        ApplicationUser currentUser = applicationUserRepository.findByUsername(p.getName());
         List<ApplicationUser> users = applicationUserRepository.findAll();
         System.out.println(Arrays.asList(users).toString());
         Set<ApplicationUser> friends = currentUser.getFriends();
@@ -94,7 +95,7 @@ public class ApplicationUserController {
 
     @GetMapping("/feed")
     public String getFeed(Principal p, Model m) {
-        ApplicationUser user = ApplicationUserRepository.findByUsername(p.getName());
+        ApplicationUser user = applicationUserRepository.findByUsername(p.getName());
         m.addAttribute("user", user);
 
         return "userInfo";
@@ -112,7 +113,7 @@ public class ApplicationUserController {
 
     @GetMapping("/users/{id}")
     public String getUserInfo(@PathVariable long id, Model m, Principal p){
-        ApplicationUser user = ApplicationUserRepository.findById(id);
+        ApplicationUser user = applicationUserRepository.findById(id);
         if(user.getUsername().equals(p.getName())){
             m.addAttribute("user", user);
             return "userInfo";
@@ -124,7 +125,7 @@ public class ApplicationUserController {
 
     @GetMapping("/myprofile")
     public RedirectView getProfilePage(Principal p, Model m){
-        ApplicationUser user = ApplicationUserRepository.findByUsername(p.getName());
+        ApplicationUser user = applicationUserRepository.findByUsername(p.getName());
         Long id = user.id;
         m.addAttribute("user", user);
         return new RedirectView("/users/" + id);

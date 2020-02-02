@@ -12,11 +12,13 @@
 <div th:replace="fragments/header :: header">...</div>
 
 
-<form action="/myprofile">
+<form action="/login" method="post">
     Username <input type="username" name="username">
     Password <input type="password" name="password">
     <input type="submit">
 </form>
+
+<a href="/signup">Sign Up</a>
 
 </body>
 </html>

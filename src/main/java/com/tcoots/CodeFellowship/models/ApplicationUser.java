@@ -47,15 +47,15 @@ public class ApplicationUser implements UserDetails {
         this.bio = bio;
     }
 
-
+    @Override
     public Collection<?extends GrantedAuthority> getAuthorities(){
         return null;
     }
-
+    @Override
     public String getPassword(){
         return password;
     }
-
+    @Override
     public String getUsername(){
         return username;
     }
@@ -124,18 +124,22 @@ public class ApplicationUser implements UserDetails {
         this.friends = friends;
     }
 
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @Override
     public boolean isEnabled() {
         return true;
     }

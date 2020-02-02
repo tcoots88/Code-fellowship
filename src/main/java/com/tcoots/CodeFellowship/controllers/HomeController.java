@@ -20,17 +20,10 @@ import java.util.ArrayList;
 @Controller
 public class HomeController {
 
-
-
-
     @GetMapping("/")
     public String getHome(){
         return "home";
     }
-
-
-
-
 
 
 }

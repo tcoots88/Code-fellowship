@@ -31,7 +31,7 @@ public class PostController {
     @PostMapping("/posts")
     public RedirectView addPost(String body, Principal p){
         Post newPost = new Post(body);
-        ApplicationUser me = ApplicationUserRepository.findByUsername(p.getName());
+        ApplicationUser me = applicationUserRepository.findByUsername(p.getName());
         newPost.creator = me;
         postRepository.save(newPost);
         return new RedirectView("/myprofile");
